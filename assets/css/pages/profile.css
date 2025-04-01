@@ -1,0 +1,120 @@
+/* assets/css/pages/profile.css */
+
+.profile-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: var(--spacing-xl);
+  max-width: var(--container-width);
+  margin: 0 auto;
+}
+
+.profile-sidebar {
+  background-color: var(--light-gray);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  height: fit-content;
+}
+
+.profile-photo {
+  width: 200px;
+  height: 200px;
+  border-radius: var(--border-radius-circle);
+  object-fit: cover;
+  border: 4px solid var(--un-blue);
+  margin: 0 auto var(--spacing-lg);
+  display: block;
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.profile-name {
+  margin-bottom: var(--spacing-sm);
+}
+
+.profile-title {
+  color: var(--dark-gray);
+  margin-bottom: var(--spacing-md);
+}
+
+.profile-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-nav li {
+  margin-bottom: var(--spacing-sm);
+}
+
+.profile-nav a {
+  display: block;
+  padding: var(--spacing-md);
+  color: var(--text-color);
+  border-radius: var(--border-radius-sm);
+  transition: background-color var(--transition-speed);
+}
+
+.profile-nav a:hover,
+.profile-nav a.active {
+  background-color: var(--un-light-blue);
+  color: var(--un-dark-blue);
+}
+
+.profile-content {
+  background-color: white;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--spacing-xl);
+}
+
+.profile-section {
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--medium-gray);
+}
+
+.profile-section:last-child {
+  border-bottom: none;
+}
+
+.profile-section-title {
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 2px solid var(--un-blue);
+}
+
+.profile-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.profile-info-item {
+  background-color: var(--light-gray);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+}
+
+.profile-info-label {
+  font-size: var(--font-size-sm);
+  color: var(--dark-gray);
+  margin-bottom: var(--spacing-xs);
+}
+
+.profile-info-value {
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .profile-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .profile-sidebar {
+    margin-bottom: var(--spacing-xl);
+  }
+}

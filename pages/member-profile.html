@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Profile - AFICS/NY</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/pages/profile.css">
+</head>
+<body>
+    <div data-component="header"></div>
+    <div data-component="navigation"></div>
+    
+    <main class="page-content">
+        <div class="profile-container">
+            <aside class="profile-sidebar">
+                <img src="/assets/img/placeholder-avatar.jpg" alt="Profile Photo" class="profile-photo">
+                
+                <div class="profile-header">
+                    <h2 class="profile-name">Jane Doe</h2>
+                    <p class="profile-title">Former UN Program Coordinator</p>
+                </div>
+                
+                <nav>
+                    <ul class="profile-nav">
+                        <li><a href="#personal" class="active">Personal Info</a></li>
+                        <li><a href="#professional">Professional History</a></li>
+                        <li><a href="#membership">Membership Details</a></li>
+                        <li><a href="#settings">Account Settings</a></li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <div class="profile-content">
+                <section id="personal" class="profile-section">
+                    <h3 class="profile-section-title">Personal Information</h3>
+                    <div class="profile-info-grid">
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">Full Name</div>
+                            <div class="profile-info-value">Jane Marie Doe</div>
+                        </div>
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">Email</div>
+                            <div class="profile-info-value">jane.doe@un.org</div>
+                        </div>
+                        <!-- More personal info items -->
+                    </div>
+                </section>
+                
+                <section id="professional" class="profile-section">
+                    <h3 class="profile-section-title">Professional History</h3>
+                    <div class="profile-info-grid">
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">Department</div>
+                            <div class="profile-info-value">UN Development Programme</div>
+                        </div>
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">Years of Service</div>
+                            <div class="profile-info-value">2005-2020</div>
+                        </div>
+                        <!-- More professional info items -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/assets/js/components.js"></script>
+    <script src="/assets/js/pages/profile.js"></script>
+</body>
+</html>

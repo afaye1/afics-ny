@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Directory - AFICS/NY</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/pages/member-directory.css">
+</head>
+<body>
+    <div data-component="header"></div>
+    <div data-component="navigation"></div>
+    
+    <main class="page-content">
+        <h1>Member Directory</h1>
+        
+        <div class="member-directory">
+            <div class="member-directory-filters">
+                <div class="member-search">
+                    <input type="text" placeholder="Search members...">
+                    <button class="btn">Search</button>
+                </div>
+                <div class="member-filter-options">
+                    <select>
+                        <option>Filter by Year</option>
+                        <option>2000-2010</option>
+                        <option>2010-2020</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="member-grid">
+                <!-- Placeholder member cards would be dynamically populated -->
+                <div class="member-card">
+                    <img src="/assets/img/placeholder-avatar.jpg" alt="Member" class="member-card-photo">
+                    <h3 class="member-card-name">Jane Doe</h3>
+                    <p class="member-card-title">Former UN Program Coordinator</p>
+                    <p class="member-card-details">Served: 2005-2020</p>
+                </div>
+                <!-- More member cards would be added dynamically -->
+            </div>
+        </div>
+    </main>
+    
+    <div data-component="footer"></div>
+    
+    <script src="/assets/js/components.js"></script>
+    <script src="/assets/js/pages/member-directory.js"></script>
+</body>
+</html>
