@@ -1,0 +1,153 @@
+/* assets/css/pages/login-register.css */
+
+.login-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xl);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.login-form-container, 
+.registration-prompt {
+  background-color: white;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--spacing-xl);
+  flex: 1;
+  min-width: 300px;
+}
+
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.section-title {
+  margin-bottom: var(--spacing-lg);
+  color: var(--un-dark-blue);
+  font-size: var(--font-size-xl);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 2px solid var(--un-blue);
+}
+
+.forgot-password {
+  display: block;
+  margin-top: var(--spacing-md);
+  text-align: right;
+  font-size: var(--font-size-sm);
+}
+
+.help-text {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-xl);
+  border-top: 1px solid var(--medium-gray);
+}
+
+.help-text h3 {
+  margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-lg);
+  color: var(--un-dark-blue);
+}
+
+.registration-prompt {
+  display: flex;
+  flex-direction: column;
+}
+
+.benefits-list {
+  margin: var(--spacing-lg) 0;
+}
+
+.benefits-list li {
+  margin-bottom: var(--spacing-md);
+}
+
+.registration-prompt .btn {
+  margin-top: auto;
+  margin-top: var(--spacing-lg);
+}
+
+/* Registration form styles */
+.registration-container {
+  background-color: white;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--spacing-xl);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.form-intro {
+  margin-bottom: var(--spacing-xl);
+}
+
+.form-intro p:last-child {
+  margin-bottom: 0;
+}
+
+.form-required-note {
+  font-size: var(--font-size-sm);
+  color: var(--dark-gray);
+  margin-bottom: var(--spacing-md);
+}
+
+.payment-options {
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  background-color: var(--un-light-blue);
+  border-radius: var(--border-radius-md);
+}
+
+.payment-options h4 {
+  margin-bottom: var(--spacing-md);
+}
+
+.payment-methods {
+  display: flex;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-md);
+}
+
+.payment-method {
+  flex: 1;
+  padding: var(--spacing-md);
+  border: 1px solid var(--medium-gray);
+  border-radius: var(--border-radius-sm);
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color var(--transition-speed);
+}
+
+.payment-method:hover {
+  border-color: var(--un-blue);
+}
+
+.payment-method.active {
+  border-color: var(--un-blue);
+  box-shadow: 0 0 0 2px rgba(0, 158, 219, 0.3);
+}
+
+.payment-method img {
+  height: 40px;
+  object-fit: contain;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .payment-methods {
+    flex-direction: column;
+  }
+  
+  .payment-method {
+    padding: var(--spacing-lg);
+  }
+  
+  .login-form-container, 
+  .registration-prompt {
+    flex: 1 1 100%;
+  }
+}

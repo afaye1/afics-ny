@@ -1,0 +1,32 @@
+<!-- components/header.html -->
+<header class="header">
+  <div class="logo-container">
+    <img src="/assets/img/un-logo.svg" alt="UN Logo" />
+    <div class="logo-text">
+      <h1>Association of Former International Civil Servants</h1>
+      <p>New York (AFICS/NY)</p>
+    </div>
+  </div>
+  <div class="search-container">
+    <input type="text" placeholder="Search...">
+    <button>Search</button>
+  </div>
+  <!-- This part can be swapped based on login state -->
+  <div class="header-account">
+    <!-- When logged out -->
+    <a href="/login.html" class="member-login logged-out-only">Member Login</a>
+    
+    <!-- When logged in -->
+    <div class="user-menu logged-in-only" style="display: none;">
+      <img src="/assets/img/placeholder-avatar.jpg" alt="User Profile">
+      <span class="user-name">John Smith</span>
+      <div class="user-dropdown">
+        <a href="/member-profile.html"><i class="fa fa-user"></i> My Profile</a>
+        <a href="/account-settings.html"><i class="fa fa-cog"></i> Account Settings</a>
+        <a href="/my-events.html"><i class="fa fa-calendar"></i> My Events</a>
+        <a href="/my-documents.html"><i class="fa fa-file"></i> My Documents</a>
+        <a href="/logout.html"><i class="fa fa-sign-out"></i> Logout</a>
+      </div>
+    </div>
+  </div>
+</header>
