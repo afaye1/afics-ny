@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Registration - AFICS/NY</title>
+    <style>
+        :root {
+            --un-blue: #009edb;
+            --un-dark-blue: #0077aa;
+            --un-light-blue: #e5f5fb;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+        
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--light-gray);
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--un-blue);
+        }
+        
+        a:hover {
+            color: var(--un-dark-blue);
+        }
+        
+        /* Header styles */
+        .header {
+            padding: 1rem 2rem;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-container img {
+            height: 60px;
+            margin-right: 1rem;
+        }
+        
+        .logo-text {
+            max-width: 300px;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .search-container {
+            display: flex;
+            max-width: 300px;
+        }
+        
+        .search-container input {
+            padding: 0.5rem;
+            border: 1px solid var(--medium-gray);
+            border-right: none;
+            border-radius: 4px 0 0 4px;
+            width: 100%;
+        }
+        
+        .search-container button {
+            padding: 0.5rem 1rem;
+            background: var(--un-blue);
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        /* Navigation styles */
+        .main-nav {
+            background-color: var(--un-blue);
+            padding: 0 2rem;
+        }
+        
+        .nav-list {
+            list-style: none;
+            display: flex;
+            justify-content: flex-start;
+        }
+        
+        .nav-list li {
+            position: relative;
+        }
+        
+        .nav-list a {
+            color: white;
+            padding: 1rem 1.5rem;
+            display: block;
+        }
+        
+        .nav-list a:hover {
+            background-color: var(--un-dark-blue);
+        }
+        
+        .nav-list li:hover .dropdown {
+            display: block;
+        }
+        
+        .dropdown {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            z-index: 1;
+            border-radius: 0 0 4px 4px;
+        }
+        
+        .dropdown a {
+            color: var(--text-color);
+            padding: 0.8rem 1.2rem;
+        }
+        
+        .dropdown a:hover {
+            background-color: var(--light-gray);
+            color: var(--un-blue);
+        }
+
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+        }
+        
+        /* Page content */
+        .page-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-title {
+            margin-bottom: 2rem;
+            color: var(--un-dark-blue);
+            font-size: 2rem;
+        }
+        
+        .registration-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+        }
+        
+        .section-title {
+            margin-bottom: 1.5rem;
+            color: var(--un-dark-blue);
+            font-size: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--un-blue);
+        }
+        
+        .form-intro {
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-section {
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        
+        .form-section h3 {
+            margin-bottom: 1.5rem;
+            color: var(--un-dark-blue);
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-row .form-group {
+            flex: 1 1 calc(50% - 0.75rem);
+            min-width: 250px;
+            margin-bottom: 0;
+        }
+        
+        .form-check {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+        }
+        
+        .form-check input[type="checkbox"],
+        .form-check input[type="radio"] {
+            margin-top: 0.3rem;
+            margin-right: 0.8rem;
+            width: auto;
+        }
+        
+        .checkbox-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .checkbox-group h4 {
+            margin-bottom: 1rem;
+        }
+        
+        .form-note {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        
+        .form-actions {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--un-blue);
+            color: white;
+            border-radius: 4px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--un-dark-blue);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: var(--un-blue);
+            border: 1px solid var(--un-blue);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--light-gray);
+            color: var(--un-dark-blue);
+        }
+        
+        .payment-options {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background-color: var(--un-light-blue);
+            border-radius: 4px;
+        }
+        
+        .payment-options h4 {
+            margin-bottom: 1rem;
+        }
+        
+        .payment-methods {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .payment-method {
+            flex: 1;
+            padding: 1rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: 4px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        
+        .payment-method:hover {
+            border-color: var(--un-blue);
+        }
+        
+        .payment-method.active {
+            border-color: var(--un-blue);
+            box-shadow: 0 0 0 2px rgba(0, 158, 219, 0.3);
+        }
+        
+        .payment-method img {
+            height: 40px;
+            object-fit: contain;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--un-dark-blue);
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1.2rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: white;
+            opacity: 0.8;
+        }
+        
+        .footer-section a:hover {
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 900px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .search-container {
+                margin-top: 1rem;
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .nav-list {
+                flex-direction: column;
+                display: none;
+            }
+            
+            .nav-list.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+            
+            .dropdown {
+                position: static;
+                box-shadow: none;
+                background-color: var(--un-light-blue);
+            }
+            
+            .dropdown a {
+                padding-left: 2.5rem;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .form-row .form-group {
+                min-width: 100%;
+            }
+            
+            .payment-methods {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <img src="https://www.un.org/other/afics/profiles/panopoly/themes/unite_one_five/images/UN-logo.svg" alt="UN Logo" />
+            <div class="logo-text">
+                <h1>Association of Former International Civil Servants</h1>
+                <p>New York (AFICS/NY)</p>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" placeholder="Search...">
+            <button>Search</button>
+        </div>
+    </header>
+    
+    <nav class="main-nav">
+        <button class="mobile-menu-btn">☰</button>
+        <ul class="nav-list">
+            <li><a href="#">Home</a></li>
+            <li>
+                <a href="#">About AFICS/NY</a>
+                <div class="dropdown">
+                    <a href="#">Governing Board</a>
+                    <a href="#">Governing Board Elections</a>
+                    <a href="#">Annual Assembly</a>
+                    <a href="#">Notes from the President</a>
+                    <a href="#">Membership</a>
+                    <a href="#">Services</a>
+                    <a href="#">FAFICS Affiliations</a>
+                    <a href="#">New York Office</a>
+                </div>
+            </li>
+            <li>
+                <a href="#">In Focus</a>
+                <div class="dropdown">
+                    <a href="#">Ageing Smart</a>
+                    <a href="#">Health Insurance</a>
+                    <a href="#">Pension Fund</a>
+                    <a href="#">Social & Other Events</a>
+                </div>
+            </li>
+            <li>
+                <a href="#">Committees</a>
+                <div class="dropdown">
+                    <a href="#">IT/Communications</a>
+                    <a href="#">Membership</a>
+                    <a href="#">Pension</a>
+                    <a href="#">Social & Other Events</a>
+                </div>
+            </li>
+            <li>
+                <a href="#">Resources</a>
+                <div class="dropdown">
+                    <a href="#">Bulletins</a>
+                    <a href="#">Directory of Members</a>
+                    <a href="#">Library</a>
+                    <a href="#">List of Accountants</a>
+                    <a href="#">List of Attorneys</a>
+                    <a href="#">Tips & Tools</a>
+                    <a href="#">UN Clubs & Classes</a>
+                    <a href="#">UNHQ Information</a>
+                    <a href="#">Useful Information for Seniors</a>
+                    <a href="#">Volunteering</a>
+                    <a href="#">UNFCU</a>
+                </div>
+            </li>
+            <li>
+                <a href="#">UN Resident Issues</a>
+                <div class="dropdown">
+                    <a href="#">Medicare Part B</a>
+                    <a href="#">Social Security</a>
+                    <a href="#">US Taxes</a>
+                </div>
+            </li>
+            <li><a href="#">Charities Foundation</a></li>
+            <li><a href="#">Galleries</a></li>
+            <li><a href="#">Contact Us</a></li>
+        </ul>
+    </nav>
+    
+    <main class="page-content">
+        <h1 class="page-title">Membership Registration</h1>
+        
+        <div class="registration-container">
+            <h2 class="section-title">Join AFICS/NY</h2>
+            
+            <div class="form-intro">
+                <p>Welcome to the AFICS/NY membership registration. Please complete the form below to join our community of former international civil servants. Annual membership dues are $35 for new members.</p>
+                <p>Required fields are marked with an asterisk (*)</p>
+            </div>
+            
+            <form action="#" method="post">
+                <div class="form-section">
+                    <h3>Personal Information</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="first_name">First Name *</label>
+                            <input type="text" id="first_name" name="first_name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="last_name">Last Name *</label>
+                            <input type="text" id="last_name" name="last_name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" id="dob" name="dob">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="nationality">Nationality</label>
+                            <input type="text" id="nationality" name="nationality">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Address Information</h3>
+                    
+                    <div class="form-group">
+                        <label for="street">Street Address *</label>
+                        <input type="text" id="street" name="street" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="apartment">Apartment/Suite (if applicable)</label>
+                        <input type="text" id="apartment" name="apartment">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City *</label>
+                            <input type="text" id="city" name="city" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="state">State/Province *</label>
+                            <input type="text" id="state" name="state" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="postal_code">Postal/ZIP Code *</label>
+                            <input type="text" id="postal_code" name="postal_code" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="country">Country *</label>
+                            <select id="country" name="country" required>
+                                <option value="">-- Select Country --</option>
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="FR">France</option>
+                                <option value="DE">Germany</option>
+                                <option value="IT">Italy</option>
+                                <option value="JP">Japan</option>
+                                <option value="AU">Australia</option>
+                                <!-- Additional countries would be added here -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>UN Career Information</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="un_organization">UN Organization *</label>
+                            <select id="un_organization" name="un_organization" required>
+                                <option value="">-- Select Organization --</option>
+                                <option value="UN">United Nations Secretariat</option>
+                                <option value="UNDP">UNDP</option>
+                                <option value="UNICEF">UNICEF</option>
+                                <option value="UNFPA">UNFPA</option>
+                                <option value="UNHCR">UNHCR</option>
+                                <option value="WHO">WHO</option>
+                                <option value="ILO">ILO</option>
+                                <option value="UNESCO">UNESCO</option>
+                                <option value="OTHER">Other (Please specify)</option>
+                                <!-- Additional organizations would be added -->
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="un_other">If Other, please specify</label>
+                            <input type="text" id="un_other" name="un_other">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="retirement_date">Retirement Date</label>
+                            <input type="date" id="retirement_date" name="retirement_date">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="last_position">Last Position Held</label>
+                            <input type="text" id="last_position" name="last_position">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="un_index">UN Index Number (if known)</label>
+                        <input type="text" id="un_index" name="un_index">
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Membership Preferences</h3>
+                    
+                    <div class="checkbox-group">
+                        <h4>Directory Listing</h4>
+                        <div class="form-check">
+                            <input type="checkbox" id="directory_include" name="directory_include" checked>
+                            <label for="directory_include">Include my information in the AFICS/NY Member Directory</label>
+                        </div>
+                        <p class="form-note">The directory is only available to AFICS/NY members.</p>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <h4>Communication Preferences</h4>
+                        <div class="form-check">
+                            <input type="checkbox" id="receive_bulletin" name="receive_bulletin" checked>
+                            <label for="receive_bulletin">Receive quarterly AFICS/NY Bulletin</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="receive_emails" name="receive_emails" checked>
+                            <label for="receive_emails">Receive email updates about events and news</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="receive_pension" name="receive_pension" checked>
+                            <label for="receive_pension">Receive pension and benefits information</label>
+                        </div>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <h4>Areas of Interest</h4>
+                        <div class="form-check">
+                            <input type="checkbox" id="interest_pension" name="interests[]" value="pension">
+                            <label for="interest_pension">Pension Issues</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="interest_health" name="interests[]" value="health">
+                            <label for="interest_health">Health Insurance</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="interest_events" name="interests[]" value="events">
+                            <label for="interest_events">Social Events</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="interest_volunteer" name="interests[]" value="volunteer">
+                            <label for="interest_volunteer">Volunteering Opportunities</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="interest_advocacy" name="interests[]" value="advocacy">
+                            <label for="interest_advocacy">Advocacy & Representation</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="skills">Skills & Expertise to Share (Optional)</label>
+                        <textarea id="skills" name="skills" placeholder="Share any skills or expertise you might be willing to contribute to AFICS/NY activities or committees."></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Account Setup</h3>
+                    
+                    <div class="form-group">
+                        <label for="password">Create Password *</label>
+                        <input type="password" id="password" name="password" required>
+                        <p class="form-note">Password must be at least 8 characters and include a combination of letters, numbers, and special characters.</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm Password *</label>
+                        <input type="password" id="confirm_password" name="confirm_password" required>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Membership Payment</h3>
+                    <p>Annual membership dues: $35.00</p>
+                    
+                    <div class="payment-options">
+                        <h4>Select Payment Method</h4>
+                        
+                        <div class="payment-methods">
+                            <div class="payment-method active">
+                                <img src="/api/placeholder/80/40" alt="Credit Card">
+                            </div>
+                            <div class="payment-method">
+                                <img src="/api/placeholder/80/40" alt="PayPal">
+                            </div>
+                            <div class="payment-method">
+                                <img src="/api/placeholder/80/40" alt="Bank Transfer">
+                            </div>
+                        </div>
+                        
+                        <!-- Credit card form fields would appear here -->
+                        <div class="form-row" style="margin-top: 1.5rem;">
+                            <div class="form-group">
+                                <label for="card_number">Card Number *</label>
+                                <input type="text" id="card_number" name="card_number" placeholder="XXXX XXXX XXXX XXXX">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="card_name">Name on Card *</label>
+                                <input type="text" id="card_name" name="card_name">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiry_date">Expiry Date *</label>
+                                <input type="text" id="expiry_date" name="expiry_date" placeholder="MM/YY">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cvv">CVV *</label>
+                                <input type="text" id="cvv" name="cvv" placeholder="XXX">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-check" style="margin-top: 2rem;">
+                    <input type="checkbox" id="terms_agree" name="terms_agree" required>
+                    <label for="terms_agree">I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a> of AFICS/NY *</label>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn">Complete Registration</button>
+                    <button type="reset" class="btn btn-secondary">Reset Form</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About AFICS/NY</h3>
+                <ul>
+                    <li><a href="#">Our Mission</a></li>
+                    <li><a href="#">Governing Board</a></li>
+                    <li><a href="#">Annual Reports</a></li>
+                    <li><a href="#">History</a></li>
+                    <li><a href="#">Membership</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Bulletins</a></li>
+                    <li><a href="#">Pension Information</a></li>
+                    <li><a href="#">Health Insurance</a></li>
+                    <li><a href="#">Member Directory</a></li>
+                    <li><a href="#">Events Calendar</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Technical Support</a></li>
+                    <li><a href="#">Feedback</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <p>Room DC1-0580<br>
+                One UN Plaza<br>
+                New York, NY 10017<br>
+                Tel: +1 212-963-2943<br>
+                Email: afics@un.org</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Association of Former International Civil Servants (New York). All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-list').classList.toggle('active');
+        });
+        
+        // Payment method selection
+        document.querySelectorAll('.payment-method').forEach(function(method) {
+            method.addEventListener('click', function() {
+                document.querySelectorAll('.payment-method').forEach(function(m) {
+                    m.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+    </script>

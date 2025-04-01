@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Directory - AFICS/NY</title>
+    <style>
+        :root {
+            --un-blue: #009edb;
+            --un-dark-blue: #0077aa;
+            --un-light-blue: #e5f5fb;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+        
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--light-gray);
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--un-blue);
+        }
+        
+        a:hover {
+            color: var(--un-dark-blue);
+        }
+        
+        /* Header styles */
+        .header {
+            padding: 1rem 2rem;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-container img {
+            height: 60px;
+            margin-right: 1rem;
+        }
+        
+        .logo-text {
+            max-width: 300px;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .search-container {
+            display: flex;
+            max-width: 300px;
+        }
+        
+        .search-container input {
+            padding: 0.5rem;
+            border: 1px solid var(--medium-gray);
+            border-right: none;
+            border-radius: 4px 0 0 4px;
+            width: 100%;
+        }
+        
+        .search-container button {
+            padding: 0.5rem 1rem;
+            background: var(--un-blue);
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        .user-menu {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-menu img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+        
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            min-width: 200px;
+            z-index: 100;
+            display: none;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+        
+        .user-menu:hover .user-dropdown {
+            display: block;
+        }
+        
+        .user-dropdown a {
+            display: block;
+            padding: 0.8rem 1rem;
+            color: var(--text-color);
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .user-dropdown a:hover {
+            background-color: var(--light-gray);
+            color: var(--un-blue);
+        }
+        
+        .user-dropdown a:last-child {
+            border-bottom: none;
+        }
+        
+        /* Navigation styles */
+        .main-nav {
+            background-color: var(--un-blue);
+            padding: 0 2rem;
+        }
+        
+        .nav-list {
+            list-style: none;
+            display: flex;
+            justify-content: flex-start;
+        }
+        
+        .nav-list li {
+            position: relative;
+        }
+        
+        .nav-list a {
+            color: white;
+            padding: 1rem 1.5rem;
+            display: block;
+        }
+        
+        .nav-list a:hover {
+            background-color: var(--un-dark-blue);
+        }
+        
+        .nav-list li:hover .dropdown {
+            display: block;
+        }
+        
+        .dropdown {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            z-index: 1;
+            border-radius: 0 0 4px 4px;
+        }
+        
+        .dropdown a {
+            color: var(--text-color);
+            padding: 0.8rem 1.2rem;
+        }
+        
+        .dropdown a:hover {
+            background-color: var(--light-gray);
+            color: var(--un-blue);
+        }
+
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+        }
+        
+        /* Directory content */
+        .directory-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .page-title {
+            margin-bottom: 2rem;
+            color: var(--un-dark-blue);
+            font-size: 2rem;
+        }
+        
+        .directory-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .directory-card h2 {
+            margin-bottom: 1.5rem;
+            color: var(--un-dark-blue);
+            font-size: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--un-blue);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .directory-intro {
+            margin-bottom: 2rem;
+        }
+        
+        .search-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: var(--un-light-blue);
+            border-radius: 8px;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .filter-group input,
+        .filter-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .filter-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--un-blue);
+            color: white;
+            border-radius: 4px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--un-dark-blue);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: var(--un-blue);
+            border: 1px solid var(--un-blue);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--light-gray);
+            color: var(--un-dark-blue);
+        }
+        
+        .directory-results {
+            margin-top: 2rem;
+        }
+        
+        .result-stats {
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .directory-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .directory-table th {
+            background-color: var(--un-light-blue);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 500;
+            border-bottom: 2px solid var(--un-blue);
+        }
+        
+        .directory-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        
+        .directory-table tr:hover {
+            background-color: var(--light-gray);
+        }
+        
+        .table-profile {
+            display: flex;
+            align-items: center;
+        }
+        
+        .table-profile img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+        
+        .table-name {
+            font-weight: 500;
+        }
+        
+        .table-org {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .table-actions a {
+            margin-right: 0.5rem;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .pagination a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0 0.3rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: 4px;
+            color: var(--text-color);
+        }
+        
+        .pagination a:hover,
+        .pagination a.active {
+            background-color: var(--un-blue);
+            color: white;
+            border-color: var(--un-blue);
+        }
+        
+        /* Alphabet filter */
+        .alphabet-filter {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 2rem;
+            gap: 0.3rem;
+        }
+        
+        .alphabet-filter a {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            text-align: center;
+            border-radius: 4px;
+            background-color: white;
+            color: var(--un-blue);
+            font-weight: 500;
+            border: 1px solid var(--medium-gray);
+        }
+        
+        .alphabet-filter a:hover,
+        .alphabet-filter a.active {
+            background-color: var(--un-blue);
+            color: white;
+            border-color: var(--un-blue);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--un-dark-blue);
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1.2rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: white;
+            opacity: 0.8;
+        }
+        
+        .footer-section a:hover {
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 900px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .search-container {
+                margin-top: 1rem;
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .nav-list {
+                flex-direction: column;
+                display: none;
+            }
+            
+            .nav-list.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+            
+            .dropdown {
+                position: static;
+                box-shadow: none;
+                background-color: var(--un-light-blue);
+            }
+            
+            .dropdown a {
+                padding-left: 2.5rem;
+            }
+            
+            .directory-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <img src="https://www.un.org/other/afics/profiles/panopoly/themes/unite_one_five/images/UN-logo.svg" alt="UN Logo" />
+            <div class="logo-text">
+                <h1>Association of Former International Civil Servants</h1>
+                <p>New York (AFICS/NY)</p>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" placeholder="Search...">
+            <button>Search</button>
+        </div>
+        <div class="user-menu">
+            <img src="/api/placeholder/40/40" alt="User Profile">
+            <span>John Smith</span>
+            <div class="user-dropdown">
+                <a href="#"><i class="fa fa-user"></i> My Profile</a>
+                <a href="#"><i class="fa fa-cog"></i> Account Settings</a>
+                <a href="#"><i class="fa fa-calendar"></i> My Events</a>
+                <a href="#"><i class="fa fa-file"></i> My Documents</a>
+                <a href="#"><i class="fa fa-sign-out"></i> Logout</a>
+            </div>
+        </div>
+    </header>
+    
+    <nav class="main-nav">
+        <button class="mobile-menu-btn">☰</button>
+        <ul class="nav-list">
+            <li><a href="#">Home</a></li>
+            <li>
+                <a href="#">About AFICS/NY</a>
+                <div class="dropdown">
+                    <a href="#">Governing Board</a>
+                    <a href="#">Governing Board Elections</a>
+                    <a href="#">Annual Assembly</a>
+                    <a href="#">Notes from the President</a>
+                    <a href="#">Membership</a>
+                    <a href="#">Services</a>
+                    <a href="#">FAFICS Affiliations</a>
+                    <a href="#">New York Office</a>
+                </div>
+            </li>
+            <li>
+                <a href="#">In Focus</a>
+                <div class="dropdown">
+                    <a href="#">Ageing Smart</a>
+                    <a href="#">Health Insurance</a>
+                    <a href="#">Pension Fund</a>
+                    <a href="#">Social & Other Events</a>
+                </div>
+            </li>
+            <li>
+                <a href="#">Committees</a>
+                <div class="dropdown">
+                    <a href="#">IT/Communications</a>
+                    <a href="#">Membership</a>
+                    <a href="#">Pension</a>
+                    <a href="#">Social & Other Events</a>
+                </div>
+            </li>
+            <li>
+                <a href="#">Resources</a>
+                <div class="dropdown">
+                    <a href="#">Bulletins</a>
+                    <a href="#">Directory of Members</a>
+                    <a href="#">Library</a>
+                    <a href="#">List of Accountants</a>
+                    <a href="#">List of Attorneys</a>
+                    <a href="#">Tips & Tools</a>
+                    <a href="#">UN Clubs & Classes</a>
+                    <a href="#">UNHQ Information</a>
+                    <a href="#">Useful Information for Seniors</a>
+                    <a href="#">Volunteering</a>
+                    <a href="#">UNFCU</a>
+                </div>
+            </li>
+            <li>
+                <a href="#">UN Resident Issues</a>
+                <div class="dropdown">
+                    <a href="#">Medicare Part B</a>
+                    <a href="#">Social Security</a>
+                    <a href="#">US Taxes</a>
+                </div>
+            </li>
+            <li><a href="#">Charities Foundation</a></li>
+            <li><a href="#">Galleries</a></li>
+            <li><a href="#">Contact Us</a></li>
+        </ul>
+    </nav>
+    
+    <main class="directory-container">
+        <h1 class="page-title">Member Directory</h1>
+        
+        <div class="directory-card">
+            <div class="directory-intro">
+                <p>Connect with fellow AFICS/NY members through our comprehensive directory. This member-exclusive resource allows you to search for former colleagues based on various criteria including name, UN organization, and location.</p>
+                <p>Member privacy is important to us. Each member controls what information is displayed in this directory through their profile settings.</p>
+            </div>
+            
+            <div class="alphabet-filter">
+                <a href="#" class="active">All</a>
+                <a href="#">A</a>
+                <a href="#">B</a>
+                <a href="#">C</a>
+                <a href="#">D</a>
+                <a href="#">E</a>
+                <a href="#">F</a>
+                <a href="#">G</a>
+                <a href="#">H</a>
+                <a href="#">I</a>
+                <a href="#">J</a>
+                <a href="#">K</a>
+                <a href="#">L</a>
+                <a href="#">M</a>
+                <a href="#">N</a>
+                <a href="#">O</a>
+                <a href="#">P</a>
+                <a href="#">Q</a>
+                <a href="#">R</a>
+                <a href="#">S</a>
+                <a href="#">T</a>
+                <a href="#">U</a>
+                <a href="#">V</a>
+                <a href="#">W</a>
+                <a href="#">X</a>
+                <a href="#">Y</a>
+                <a href="#">Z</a>
+            </div>
+            
+            <div class="search-filters">
+                <div class="filter-group">
+                    <label for="search-name">Name</label>
+                    <input type="text" id="search-name" placeholder="Search by name">
+                </div>
+                
+                <div class="filter-group">
+                    <label for="search-organization">UN Organization</label>
+                    <select id="search-organization">
+                        <option value="">Any Organization</option>
+                        <option value="UN">United Nations Secretariat</option>
+                        <option value="UNDP">UNDP</option>
+                        <option value="UNICEF">UNICEF</option>
+                        <option value="UNFPA">UNFPA</option>
+                        <option value="UNHCR">UNHCR</option>
+                        <option value="WHO">WHO</option>
+                        <option value="ILO">ILO</option>
+                        <option value="UNESCO">UNESCO</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="search-location">Location</label>
+                    <select id="search-location">
+                        <option value="">Any Location</option>
+                        <option value="NY">New York Area</option>
+                        <option value="US">United States</option>
+                        <option value="INT">International</option>
+                    </select>
+                </div>
+                
+                <div class="filter-actions">
+                    <button class="btn">Search</button>
+                    <button class="btn btn-secondary">Reset</button>
+                </div>
+            </div>
+            
+            <div class="directory-results">
+                <p class="result-stats">Showing 1-10 of 435 members</p>
+                
+                <table class="directory-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>UN Organization</th>
+                            <th>Location</th>
+                            <th>Member Since</th>
+                            <th>Contact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="table-profile">
+                                    <img src="/api/placeholder/50/50" alt="Profile Photo">
+                                    <div>
+                                        <div class="table-name">Adams, Amanda</div>
+                                        <div class="table-org">Former Programme Officer</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>UNDP</td>
+                            <td>New York, NY</td>
+                            <td>2015</td>
+                            <td class="table-actions">
+                                <a href="#" title="Email"><i class="fa fa-envelope"></i></a>
+                                <a href="#" title="View Profile"><i class="fa fa-user"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-profile">
+                                    <img src="/api/placeholder/50/50" alt="Profile Photo">
+                                    <div>
+                                        <div class="table-name">Alvarez, Carlos</div>
+                                        <div class="table-org">Former Deputy Director</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>UN Secretariat</td>
+                            <td>Miami, FL</td>
+                            <td>2017</td>
+                            <td class="table-actions">
+                                <a href="#" title="Email"><i class="fa fa-envelope"></i></a>
+                                <a href="#" title="View Profile"><i class="fa fa-user"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-profile">
+                                    <img src="/api/placeholder/50/50" alt="Profile Photo">
+                                    <div>
+                                        <div class="table-name">Banerjee, Priya</div>
+                                        <div class="table-org">Former Health Specialist</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>WHO</td>
+                            <td>New York, NY</td>
+                            <td>2019</td>
+                            <td class="table-actions">
+                                <a href="#" title="Email"><i class="fa fa-envelope"></i></a>
+                                <a href="#" title="View Profile"><i class="fa fa-user"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-profile">
+                                    <img src="/api/placeholder/50/50" alt="Profile Photo">
+                                    <div>
+                                        <div class="table-name">Chen, Wei</div>
+                                        <div class="table-org">Former Finance Officer</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>UN Secretariat</td>
+                            <td>Boston, MA</td>
+                            <td>2016</td>
+                            <td class="table-actions">
+                                <a href="#" title="Email"><i class="fa fa-envelope"></i></a>
+                                <a href="#" title="View Profile"><i class="fa fa-user"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-profile">
+                                    <img src="/api/placeholder/50/50" alt="Profile Photo">
+                                    <div>
+                                        <div class="table-name">Diallo, Aissatou</div>
+                                        <div class="table-org">Former Human Rights Officer</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>OHCHR</td>
+                            <td>Washington, DC</td>
+                            <td>2020</td>
+                            <td class="table-actions">
+                                <a href="#" title="Email"><i class="fa fa-envelope"></i></a>
+                                <a href="#" title="View Profile"><i class="fa fa-user"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-profile">
+                                    <img src="/api/placeholder/50/50" alt="Profile Photo">
+                                    <div>
+                                        <div class="table-name">Garcia, Elena</div>
+                                        <div class="table-org">Former Communications Specialist</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>UNICEF</td>
+                            <td>New York, NY</td>
+                            <td>2018</td>
+                            <td class="table-actions">
+                                <a href="#" title="Email"><i class="fa fa-envelope"></i></a>
+                                <a href="#" title="View Profile"><i class="fa fa-user"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-profile">
+                                    <img src="/api/placeholder/50/50" alt="Profile Photo">
+                                    <div>
+                                        <div class="table-name">Johnson, Robert</div>
+                                        <div class="table-org">Former Security Advisor</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>UN Secretariat</td>
+                            <td>Los Angeles, CA</td>
+                            <td>2015</td>
+                            <td class="table-actions">
+                                <a href="#" title="Email"><i class="fa fa-envelope"></i></a>
+                                <a href="#" title="View Profile"><i class="fa fa-user"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-profile">
+                                    <img src="/api/placeholder/50/50" alt="Profile Photo">
+                                    <div>
+                                        <div class="table-name">Kimura, Yuki</div>
+                                        <div class="table-org">Former Technical Advisor</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>UNESCO</td>
+                            <td>New York, NY</td>
+                            <td>2019</td>
+                            <td class="table-actions">
+                                <a href="#" title="Email"><i class="fa fa-envelope"></i></a>
+                                <a href="#" title="View Profile"><i class="fa fa-user"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-profile">
+                                    <img src="/api/placeholder/50/50" alt="Profile Photo">
+                                    <div>
+                                        <div class="table-name">Mehta, Raj</div>
+                                        <div class="table-org">Former IT Director</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>UNDP</td>
+                            <td>New York, NY</td>
+                            <td>2017</td>
+                            <td class="table-actions">
+                                <a href="#" title="Email"><i class="fa fa-envelope"></i></a>
+                                <a href="#" title="View Profile"><i class="fa fa-user"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-profile">
+                                    <img src="/api/placeholder/50/50" alt="Profile Photo">
+                                    <div>
+                                        <div class="table-name">Ndlovu, Thabo</div>
+                                        <div class="table-org">Former Policy Specialist</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>UNFPA</td>
+                            <td>Atlanta, GA</td>
+                            <td>2020</td>
+                            <td class="table-actions">
+                                <a href="#" title="Email"><i class="fa fa-envelope"></i></a>
+                                <a href="#" title="View Profile"><i class="fa fa-user"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="pagination">
+                    <a href="#">&laquo;</a>
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#">&raquo;</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About AFICS/NY</h3>
+                <ul>
+                    <li><a href="#">Our Mission</a></li>
+                    <li><a href="#">Governing Board</a></li>
+                    <li><a href="#">Annual Reports</a></li>
+                    <li><a href="#">History</a></li>
+                    <li><a href="#">Membership</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Bulletins</a></li>
+                    <li><a href="#">Pension Information</a></li>
+                    <li><a href="#">Health Insurance</a></li>
+                    <li><a href="#">Member Directory</a></li>
+                    <li><a href="#">Events Calendar</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Technical Support</a></li>
+                    <li><a href="#">Feedback</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <p>Room DC1-0580<br>
+                One UN Plaza<br>
+                New York, NY 10017<br>
+                Tel: +1 212-963-2943<br>
+                Email: afics@un.org</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Association of Former International Civil Servants (New York). All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-list').classList.toggle('active');
+        });
+        
+        // Alphabet filter functionality
+        document.querySelectorAll('.alphabet-filter a').forEach(function(letter) {
+            letter.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all letters
+                document.querySelectorAll('.alphabet-filter a').forEach(function(l) {
+                    l.classList.remove('active');
+                });
+                
+                // Add active class to clicked letter
+                this.classList.add('active');
+                
+                // In a real implementation, this would filter the directory results
+                // For prototype purposes, we're just showing the visual feedback
+            });
+        });
+    </script>
+</body>
+</html>
