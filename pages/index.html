@@ -1,27 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AFICS/NY - Home</title>
-    <link rel="stylesheet" href="/assets/css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFICS/NY - Association of Former International Civil Servants</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  
+  <!-- Page-specific CSS -->
+  <link rel="stylesheet" href="/assets/css/pages/home.css">
 </head>
 <body>
-    <div data-component="header"></div>
-    <div data-component="navigation"></div>
-    
-    <main class="page-content">
-        <h1>Welcome to AFICS/NY</h1>
-        <p>Association of Former International Civil Servants (New York)</p>
+  <!-- Header Component -->
+  <div data-component="header"></div>
+  
+  <!-- Navigation Component -->
+  <div data-component="navigation"></div>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Welcome to AFICS/NY</h1>
+      <p>Supporting former international civil servants and promoting United Nations programs and principles</p>
+      <div class="hero-buttons">
+        <a href="/register.html" class="btn btn-lg">Join AFICS/NY</a>
+        <a href="/about.html" class="btn btn-lg btn-secondary">Learn More</a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="content">
+      <section class="section">
+        <h2>Latest News & Announcements</h2>
         
-        <section class="content-container">
-            <h2>About Us</h2>
-            <p>AFICS/NY supports former UN staff, promotes UN principles, and provides valuable resources for retirees.</p>
-        </section>
-    </main>
+        <div class="card">
+          <h3>57th AFICS/NY Annual Assembly</h3>
+          <p>The 57th Annual Assembly was held virtually on 15 June 2025. Members can now access the recording, presentations, and statements.</p>
+          <div class="card-footer">
+            <span>June 16, 2025</span>
+            <a href="/annual-assembly.html">Read More</a>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>AFICS/NY Fall Luncheon on NY Bateau</h3>
+          <p>Join us for our annual Fall Luncheon cruise around Manhattan on 24 October 2025. Early registration is now open for members.</p>
+          <div class="card-footer">
+            <span>May 30, 2025</span>
+            <a href="/events/fall-luncheon-2025.html">Read More</a>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>Important Update on After-Service Health Insurance</h3>
+          <p>Recent changes to ASHI policies that may affect your coverage. We've compiled a summary of the key points for your reference.</p>
+          <div class="card-footer">
+            <span>May 15, 2025</span>
+            <a href="/health-insurance/ashi-updates.html">Read More</a>
+          </div>
+        </div>
+      </section>
+      
+      <section class="section">
+        <h2>Featured Resources</h2>
+        
+        <div class="card">
+          <h3>Guide to UN Pension Fund Benefits</h3>
+          <p>A comprehensive overview of your pension benefits, calculation methods, and recent updates from the Pension Board.</p>
+          <div class="card-footer">
+            <span>Updated April 2025</span>
+            <a href="/resources/pension-guide.html">Access Guide</a>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>Healthcare Options for Retirees</h3>
+          <p>Understand your health insurance options as a UN retiree, including coverage details, eligibility, and how to maximize your benefits.</p>
+          <div class="card-footer">
+            <span>Updated March 2025</span>
+            <a href="/resources/healthcare-guide.html">Access Guide</a>
+          </div>
+        </div>
+      </section>
+    </div>
     
-    <div data-component="footer"></div>
-    
-    <script src="/assets/js/components.js"></script>
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>Upcoming Events</h3>
+        
+        <div class="sidebar-item">
+          <img src="/assets/img/event-retirement-planning.jpg" alt="Event thumbnail">
+          <div>
+            <h4>Retirement Planning Workshop</h4>
+            <p>April 15, 2025 | Virtual</p>
+          </div>
+        </div>
+        
+        <div class="sidebar-item">
+          <img src="/assets/img/event-health-wellness.jpg" alt="Event thumbnail">
+          <div>
+            <h4>Health & Wellness Seminar</h4>
+            <p>April 22, 2025 | UN Headquarters</p>
+          </div>
+        </div>
+        
+        <div class="sidebar-item">
+          <img src="/assets/img/event-tax-preparation.jpg" alt="Event thumbnail">
+          <div>
+            <h4>Tax Preparation Assistance</h4>
+            <p>April 10-12, 2025 | UN Headquarters</p>
+          </div>
+        </div>
+        
+        <a href="/events.html" class="btn btn-block">View All Events</a>
+      </div>
+      
+      <div class="sidebar-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="https://www.unjspf.org/" target="_blank">UNJSPF Pension Fund</a></li>
+          <li><a href="https://www.unfcu.org/" target="_blank">UN Federal Credit Union</a></li>
+          <li><a href="/health-insurance.html">UN Health Insurance</a></li>
+          <li><a href="/member-directory.html">Directory of Members</a></li>
+          <li><a href="/un-clubs.html">UN Clubs & Activities</a></li>
+        </ul>
+      </div>
+      
+      <div class="sidebar-section">
+        <h3>Member Login</h3>
+        <p>Access your member profile, update your information, and view exclusive content.</p>
+        <a href="/login.html" class="btn btn-block">Login / Register</a>
+      </div>
+    </aside>
+  </main>
+  
+  <!-- Footer Component -->
+  <div data-component="footer"></div>
+  
+  <!-- JavaScript -->
+  <script src="/assets/js/components.js"></script>
 </body>
 </html>
